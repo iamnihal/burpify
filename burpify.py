@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import sys
 import argparse
+import base64
 import requests
 import urllib3
 
@@ -63,8 +64,8 @@ class RequestParser(object):
         self.headers = dict()
         while ind < len(req_lines) and len(req_lines[ind]) > 0:
             colon_ind = req_lines[ind].find(":")
-            header_key = req_lines[ind][:colon_ind]
-            header_value = req_lines[ind][colon_ind + 1 :]
+            header_key = req_lines[ind][:colon_ind].strip()
+            header_value = req_lines[ind][colon_ind + 1 :].strip()
             self.headers[header_key] = header_value.strip()
             ind += 1
         ind += 1
@@ -119,7 +120,14 @@ if args.burp_xml:
             VERIFY = True
 
         for index, issue in enumerate(root.findall("item")):
+            base64_encoded = issue.find("request").attrib['base64']
             http_request = issue.find("request").text
+
+            if base64_encoded == "true":
+                base64_http_request = issue.find("request").text
+                http_request = base64.b64decode(base64_http_request).decode(encoding="utf-8")
+                CRLF = "\r\n"
+
             rp = RequestParser(http_request)
 
             if args.header_key:
