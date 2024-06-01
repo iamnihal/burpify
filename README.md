@@ -31,3 +31,4 @@ options:
                         Proxy URL (e.g., http://localhost:8080)
   -v VIEW, --view VIEW  What to view in the response (multiple views can be separated by comma, e.g., "status,headers"). Possible values: [status, headers, body, length, all, none]
 ```
+#### Credit: [To this 4-year-old gist](https://gist.github.com/cunla/c074179a587c0d012229ee8cc5c04a8c)
