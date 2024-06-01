@@ -2,7 +2,7 @@
 burpify takes a Burp Suite XML file as input, parses it, and modifies the HTTP request headers as specified by the user before sending them.
 
 ## But why?
-While analyzing a web application, I used Burp Suite to capture all the requests. After consolidating the requests, I wanted to modify specific header values in all requests and send them back to the server to analyze the responses. However, I found no built-in functionality in Burp to achieve this. After searching a bit, I decided to write a tool to automate this process.
+While analyzing a web application, I used Burp Suite to capture all the requests. After consolidating the requests, I wanted to modify specific header values in all requests and send them back to the server to analyze the responses. However, I found no built-in functionality in Burp to achieve this and that's why this tool came into the picture.
 
 # Usage
 
