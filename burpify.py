@@ -138,7 +138,13 @@ if args.burp_xml:
 
             req = rp.to_request()
             prepared_request = req.prepare()
-            response = session.send(prepared_request, verify=VERIFY)
+            session.max_redirects = 5
+            try:
+                response = session.send(prepared_request, verify=VERIFY, timeout=30, allow_redirects=True)
+            except requests.exceptions.TooManyRedirects as e:
+                print(f"Error: Exceeded maximum redirect limit - {e}")
+            except requests.exceptions.ProxyError as e:
+                print(f"Error: Proxy Error - {e}")
 
             if args.view:
                 output = [rp.url]
